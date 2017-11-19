@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo "Created by alphawong"
+
 echo "Building ..."
 gcc -o assignment2.out ./assignment2.c
 echo
