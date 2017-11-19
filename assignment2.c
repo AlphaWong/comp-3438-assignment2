@@ -1,7 +1,7 @@
 // This Source Code Form is subject to the terms of the Mozilla Public
 // License, v. 2.0. If a copy of the MPL was not distributed with this
 // file, You can obtain one at http://mozilla.org/MPL/2.0/.
-// Credit alpha.wong@tuta.io
+// Credit <alpha.wong@tuta.io>
 
 #include <fcntl.h>
 #include <stdio.h>
@@ -33,6 +33,9 @@ int forward;
 
 // The token lexeme value
 char tokenValue[Max_Token_Size];
+
+// File ends with \0
+const char END_OF_READ = '\0';
 
 bool isAlphabet(const char c) {
     char temp = c;
@@ -115,15 +118,15 @@ void printToken(TokenType token) {
 }
 
 // getNextSyntax will move the token value
-// @param int forward
-// @return int nf
+// @param int f means current forword
+// @return int nf means next forword
 
 int getNextSyntax(const int f) {
     int i;
     for (i = 0; i < f; i++) {
         tokenValue[i] = startPoint[i];
     }
-    tokenValue[i] = '\0';
+    tokenValue[i] = END_OF_READ;
     int nf = f - 1;
     return nf;
 }
@@ -253,7 +256,7 @@ int getNextToken() {
                     break;
                 }
 
-                if (c == '\0') {
+                if (c == END_OF_READ) {
                     currentState = 18;
                     break;
                 } else {
@@ -328,8 +331,7 @@ bool parseFile(const char *arg) {
         close(fd);
         return false;
     } else {
-        // File ends with \0
-        inputBuffer[rbytes - 1] = '\0';
+        inputBuffer[rbytes - 1] = END_OF_READ;
     }
 
     printf("Token Name\t\t\t|Token Value \n");
