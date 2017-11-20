@@ -336,7 +336,7 @@ bool parseFile(const char *arg) {
     close(fd);
     return false;
   } else {
-    inputBuffer[rbytes - 1] = END_OF_READ;
+    inputBuffer[rbytes] = END_OF_READ;
   }
 
   printf("Token Name\t\t\t|Token Value \n");
