@@ -4,3 +4,4 @@ begin
 	B = 6;
 	C = (a + b) / 2.0;
 end.
+
